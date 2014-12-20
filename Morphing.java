@@ -33,7 +33,7 @@ public class Morphing extends JPanel implements Runnable {
 		buffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_BGR);
 		bufferGraphics = buffer.createGraphics();
 		bufferGraphics.setBackground(Color.white);
-    	bufferGraphics.clearRect(0, 0, WIDTH, HEIGHT);
+		bufferGraphics.clearRect(0, 0, WIDTH, HEIGHT);
 
 		line1 = new Point2D.Float[10];
 		line2 = new Point2D.Float[10];
@@ -44,15 +44,15 @@ public class Morphing extends JPanel implements Runnable {
 		float x2;
 		float y2;
 		for(int i = 0; i < 10; i++) {
-            x1 = 150+(40 + 90 * ((i + 1) % 2))
+			x1 = 150+(40 + 90 * ((i + 1) % 2))
                            * (float)Math.sin(Math.PI * i * 36 / 180);
-            y1 = 150 - (40 + 90 * ((i + 1) % 2))
+			y1 = 150 - (40 + 90 * ((i + 1) % 2))
                            * (float)Math.cos(Math.PI * i * 36 / 180);
-            x2 = 150 + 90 * (float)Math.sin(Math.PI * i * 36 / 180);
-            y2 = 150 - 90 * (float)Math.cos(Math.PI * i * 36 / 180);
-            line1[i] = new Point2D.Float(x1, y1);
-            line2[i] = new Point2D.Float(x2, y2);
-        }
+			x2 = 150 + 90 * (float)Math.sin(Math.PI * i * 36 / 180);
+			y2 = 150 - 90 * (float)Math.cos(Math.PI * i * 36 / 180);
+			line1[i] = new Point2D.Float(x1, y1);
+			line2[i] = new Point2D.Float(x2, y2);
+		}
 
 
 		Thread refresh = new Thread(this);
@@ -77,19 +77,19 @@ public class Morphing extends JPanel implements Runnable {
 				bufferGraphics.drawLine((int)line3[i-1].x, (int)line3[i-1].y, (int)line3[i].x, (int)line3[i].y);
 				repaint();
 			}
- 		}
-		 
+		}
+		
 	}
 
 	/*
 	 * paint
 	 */
 	public void paintComponent(Graphics g) {
-	  	super.paintComponent(g);
+		super.paintComponent(g);
 
-	    if(buffer != null) {
-	      g.drawImage(buffer, 0, 0, this);
-	    }
+		if(buffer != null) {
+			g.drawImage(buffer, 0, 0, this);
+		}
 	}
 
 	/*
@@ -99,19 +99,19 @@ public class Morphing extends JPanel implements Runnable {
 		float t = 0.0f;
 
 		while(true) {
-	    	try {
-	    		calculate(t);
-	    		t += 0.1f;
-	    		if(1.0f < t) {
-	    			t = 0.0f;
-	    			bufferGraphics.clearRect(0, 0, WIDTH, HEIGHT);
-	    		}
+			try {
+				calculate(t);
+				t += 0.1f;
+				if(1.0f < t) {
+					t = 0.0f;
+					bufferGraphics.clearRect(0, 0, WIDTH, HEIGHT);
+				}
 				Thread.sleep(1000);
-	    	} catch(Exception e) {
-	    		System.out.println("error");
-	    	}
+			} catch(Exception e) {
+				System.out.println("error");
+			}
 		}
-    }
+	}
 
 	public static void main(String[] args) {
 		Morphing morph = new Morphing();
@@ -120,10 +120,10 @@ public class Morphing extends JPanel implements Runnable {
 
 		final JFrame jframe = new  JFrame("hoge");
 		Container container = jframe.getContentPane();
-	    container.setLayout(new BorderLayout());
-	    
-	    jframe.add(morph, BorderLayout.CENTER);
-	    jframe.pack();
+		container.setLayout(new BorderLayout());
+		
+		jframe.add(morph, BorderLayout.CENTER);
+		jframe.pack();
 	    jframe.setResizable(false);//画面の大きさは変更できなくする
 	    jframe.setBackground(Color.white);
 	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,7 +131,7 @@ public class Morphing extends JPanel implements Runnable {
 	    SwingUtilities.invokeLater(new Runnable() {//時間のかかる処理を任せるらしい
 	      public void run() {//ThreadTestTreadクラスのrunメソッド
 	          jframe.setVisible(true);//フレームを表示
-	      }
-	    });
+	        }
+	      });
+	  }
 	}
-}
