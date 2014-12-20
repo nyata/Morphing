@@ -1,7 +1,9 @@
 
 /*
  * Morphing.java
+ * Reference
  * http://codezine.jp/article/detail/30
+ * http://www.mlab.im.dendai.ac.jp/javabasic/2010/gui1/
  */
 import javax.swing.*;
 import javax.swing.JFrame;
