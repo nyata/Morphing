@@ -78,7 +78,7 @@ public class Morphing extends JPanel implements Runnable {
 				repaint();
 			}
 		}
-		
+
 	}
 
 	/*
@@ -121,17 +121,17 @@ public class Morphing extends JPanel implements Runnable {
 		final JFrame jframe = new  JFrame("hoge");
 		Container container = jframe.getContentPane();
 		container.setLayout(new BorderLayout());
-		
+
 		jframe.add(morph, BorderLayout.CENTER);
 		jframe.pack();
-	    jframe.setResizable(false);//画面の大きさは変更できなくする
-	    jframe.setBackground(Color.white);
-	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  jframe.setResizable(false);//画面の大きさは変更できなくする
+	  jframe.setBackground(Color.white);
+	  jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	    SwingUtilities.invokeLater(new Runnable() {//時間のかかる処理を任せるらしい
-	      public void run() {//ThreadTestTreadクラスのrunメソッド
-	          jframe.setVisible(true);//フレームを表示
-	        }
-	      });
-	  }
+	  SwingUtilities.invokeLater(new Runnable() {//時間のかかる処理を任せるらしい
+	    public void run() {//ThreadTestTreadクラスのrunメソッド
+	      jframe.setVisible(true);//フレームを表示
+	    }
+	  });
 	}
+}
