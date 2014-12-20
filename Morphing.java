@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.ImageIO;
+import java.lang.Math;
 
 public class Morphing extends JPanel implements Runnable {
 
@@ -32,23 +33,25 @@ public class Morphing extends JPanel implements Runnable {
 		bufferGraphics.setBackground(Color.white);
     	bufferGraphics.clearRect(0, 0, WIDTH, HEIGHT);
 
-		line1 = new Point2D.Float[6];
-		line1[0] = new Point2D.Float(1.0f, 1.1f);
-		line1[1] = new Point2D.Float(2.0f, 1.1f);
-		line1[2] = new Point2D.Float(2.1f, 2.1f);
-		line1[3] = new Point2D.Float(2.4f, 3.1f);
-		line1[4] = new Point2D.Float(1.1f, 1.5f);
-		line1[5] = new Point2D.Float(250.0f, 250.2f);
+		line1 = new Point2D.Float[10];
+		line2 = new Point2D.Float[10];
+		line3 = new Point2D.Float[10];
 
-		line2 = new Point2D.Float[6];
-		line2[0] = new Point2D.Float(0.2f, 1.1f);
-		line2[1] = new Point2D.Float(0.6f, 1.3f);
-		line2[2] = new Point2D.Float(2.9f, 5.5f);
-		line2[3] = new Point2D.Float(5.4f, 5.1f);
-		line2[4] = new Point2D.Float(1.2f, 6.5f);
-		line2[5] = new Point2D.Float(140.0f, 210f);
+		float x1;
+		float y1;
+		float x2;
+		float y2;
+		for(int i = 0; i < 10; i++) {
+            x1 = 150+(40 + 90 * ((i + 1) % 2))
+                           * (float)Math.sin(Math.PI * i * 36 / 180);
+            y1 = 150 - (40 + 90 * ((i + 1) % 2))
+                           * (float)Math.cos(Math.PI * i * 36 / 180);
+            x2 = 150 + 90 * (float)Math.sin(Math.PI * i * 36 / 180);
+            y2 = 150 - 90 * (float)Math.cos(Math.PI * i * 36 / 180);
+            line1[i] = new Point2D.Float(x1, y1);
+            line2[i] = new Point2D.Float(x2, y2);
+        }
 
-		line3 = new Point2D.Float[6];
 
 		Thread refresh = new Thread(this);
 		refresh.start();
@@ -68,6 +71,7 @@ public class Morphing extends JPanel implements Runnable {
 			line3[i] = new Point2D.Float(x, y);
 
 			if(0 < i) {
+				bufferGraphics.setColor(Color.black);
 				bufferGraphics.drawLine((int)line3[i-1].x, (int)line3[i-1].y, (int)line3[i].x, (int)line3[i].y);
 				repaint();
 			}
@@ -80,7 +84,7 @@ public class Morphing extends JPanel implements Runnable {
 	 */
 	public void paintComponent(Graphics g) {
 	  	super.paintComponent(g);
-	  	g.setColor(Color.black);
+
 	    if(buffer != null) {
 	      g.drawImage(buffer, 0, 0, this);
 	    }
@@ -98,6 +102,7 @@ public class Morphing extends JPanel implements Runnable {
 	    		t += 0.1f;
 	    		if(1.0f < t) {
 	    			t = 0.0f;
+	    			bufferGraphics.clearRect(0, 0, WIDTH, HEIGHT);
 	    		}
 				Thread.sleep(1000);
 	    	} catch(Exception e) {
